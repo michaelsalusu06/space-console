@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deep Space Resource &amp; Translation Matrix</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="frame">
+        <header class="header-area">
+            <div class="brand">HAIL MARY</div>
+            <div class="title-block">
+                <h1>Spaceship Console</h1>
+                <p>Astrophage Reactor &middot; Coordinate with Engineer Rocky</p>
+            </div>
+        </header>
+
+        <section class="stage">
+            <div class="telemetry-card glass" id="telemetry-card">
+                <h3 class="panel-title">Reactor Telemetry</h3>
+                <div id="jump-status-readout" class="row-list">
+                    <div class="row">
+                        <span class="chip">
+                            <svg viewBox="0 0 24 24"><path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 11c0 5.5-7 10-7 10z"/></svg>
+                            Fuel Mass
+                        </span>
+                        <span class="value">1000 kg</span>
+                    </div>
+                    <div class="row">
+                        <span class="chip">
+                            <svg viewBox="0 0 24 24"><path d="M12 4a8 8 0 0 0-8 8h3m13 0a8 8 0 0 0-8-8v3m0 5l4-4"/></svg>
+                            Burn Rate
+                        </span>
+                        <span class="value">15 kg/km</span>
+                    </div>
+                    <div class="row">
+                        <span class="chip">
+                            <svg viewBox="0 0 24 24"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/></svg>
+                            Required Fuel
+                        </span>
+                        <span class="value">1500 kg</span>
+                    </div>
+                    <div class="row">
+                        <span class="chip">
+                            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 8v8M8 12h8"/></svg>
+                            Remaining Fuel
+                        </span>
+                        <span class="value">-500 kg</span>
+                    </div>
+                    <div class="row">
+                        <span class="chip">
+                            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 12l4-2"/></svg>
+                            Max Range
+                        </span>
+                        <span class="value">66 km</span>
+                    </div>
+                    <div class="row">
+                        <span class="chip">
+                            <svg viewBox="0 0 24 24"><polygon points="12 2 15 9 22 9 16.5 14 18.5 21 12 17 5.5 21 7.5 14 2 9 9 9"/></svg>
+                            Status
+                        </span>
+                        <span class="value">Not Enough Fuel</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <aside class="right-col">
+            <div class="panel glass" id="resource-panel">
+                <h3 class="panel-title">Engineering Inventory</h3>
+                <div class="row-list">
+                    <div class="row">
+                        <span class="chip">
+                            <svg viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/></svg>
+                            Astrophage
+                        </span>
+                        <span class="value"><span id="astrophage-readout">1000</span> kg</span>
+                    </div>
+                    <div class="row">
+                        <span class="chip">
+                            <svg viewBox="0 0 24 24"><polygon points="12 2 19 7 19 17 12 22 5 17 5 7"/></svg>
+                            Xenonite
+                        </span>
+                        <span class="value"><span id="xenonite-readout">200</span> kg</span>
+                    </div>
+                    <div class="row">
+                        <label class="chip" for="astrophage-input">
+                            <svg viewBox="0 0 24 24"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg>
+                            Add Astrophage
+                        </label>
+                        <input type="number" id="astrophage-input" class="row-input" value="0" min="0">
+                    </div>
+                    <div class="row">
+                        <label class="chip" for="xenonite-input">
+                            <svg viewBox="0 0 24 24"><rect x="4" y="6" width="16" height="14" rx="2"/><path d="M9 6V4h6v2"/></svg>
+                            Add Xenonite
+                        </label>
+                        <input type="number" id="xenonite-input" class="row-input" value="0" min="0">
+                    </div>
+                    <button type="button" id="calculate-jump-btn" class="btn-orange btn-full">Calculate Jump</button>
+                </div>
+            </div>
+
+            <div class="panel glass" id="nav-panel">
+                <h3 class="panel-title">Reactor Parameters</h3>
+                <div class="row-list">
+                    <div class="row">
+                        <label class="chip" for="distance-input">
+                            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 2"/></svg>
+                            Jump Distance (km)
+                        </label>
+                        <input type="number" id="distance-input" class="row-input" value="100" min="1">
+                    </div>
+                    <div class="row">
+                        <span class="chip">
+                            <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 9h8M8 13h8M8 17h5"/></svg>
+                            Required Fuel
+                        </span>
+                        <span class="value"><span id="required-fuel-readout">1500</span> kg</span>
+                    </div>
+                    <div class="row">
+                        <span class="chip">
+                            <svg viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L4 17v3h3l5.3-5.3a4 4 0 0 0 5.4-5.4l-2.3 2.3-2-2z"/></svg>
+                            Burn Rate
+                        </span>
+                        <span class="value">15 kg/km</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <section class="panel glass" id="fuel-panel">
+            <h3 class="panel-title">Fuel Capacity</h3>
+            <div class="meter-group">
+                <div class="meter-head"><span>Astrophage</span><span id="fuel-capacity-value">67%</span></div>
+                <div class="meter"><div id="fuel-progress-bar" class="meter-fill white" style="width: 67%;"></div></div>
+            </div>
+            <div class="meter-group">
+                <div class="meter-head"><span>Xenonite</span><span id="xenonite-capacity-value">40%</span></div>
+                <div class="meter"><div id="xenonite-progress-bar" class="meter-fill yellow" style="width: 40%;"></div></div>
+            </div>
+            <div class="meter-group">
+                <div class="meter-head"><span>Post-Jump Reserve</span><span id="reserve-capacity-value">0%</span></div>
+                <div class="meter"><div id="reserve-progress-bar" class="meter-fill orange" style="width: 0%;"></div></div>
+            </div>
+        </section>
+
+        <section class="panel glass" id="comms-panel">
+            <h3 class="panel-title">Communications Array &middot; Rocky</h3>
+            <div class="dict-columns">
+                <div class="dict-col">
+                    <span class="dict-label">Greetings</span>
+                    <strong>amaze &middot; fist</strong>
+                </div>
+                <div class="dict-col">
+                    <span class="dict-label">Status</span>
+                    <strong>good &middot; bad</strong>
+                </div>
+                <div class="dict-col">
+                    <span class="dict-label">Engineering</span>
+                    <strong>question &middot; fuel</strong>
+                </div>
+            </div>
+            <div id="comms-log-list" class="comms-log">
+                <div class="log-entry">Ready to translate Eridian frequencies into English...</div>
+            </div>
+            <div class="comms-input-row">
+                <input
+                    type="text"
+                    id="frequency-input"
+                    class="row-input left-align"
+                    placeholder="Log alien frequency (e.g. amaze good fuel)..."
+                    autocomplete="off"
+                >
+                <button type="button" id="transmit-btn" class="btn-orange">Transmit</button>
+            </div>
+        </section>
+
+        <section class="panel glass" id="blackbox-panel">
+            <div class="panel-header-row">
+                <h3 class="panel-title no-border">Black Box</h3>
+                <button type="button" id="download-log-btn" class="btn-orange btn-small">Download</button>
+            </div>
+            <pre id="captains-log-output" class="blackbox-pre">=== CAPTAIN'S LOG ===
+
+--- REACTOR STATUS ---
+Fuel Mass: 1000 kg
+Burn Rate: 15 kg/km
+Required Fuel: 1500 kg
+Remaining Fuel: -500 kg
+Max Range: 66 km
+Status: Not Enough Fuel
+
+--- COMMUNICATIONS LOG (SORTED) ---
+No communications logged yet.</pre>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

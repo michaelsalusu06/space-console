@@ -1,0 +1,13 @@
+=== CAPTAIN'S LOG ===
+
+--- REACTOR STATUS ---
+Fuel Mass: 1000 kg
+Jump Distance: 50 km
+Burn Rate: 15 kg/km
+Required Fuel: 750 kg
+Remaining Fuel: 250 kg
+Max Range: 66 km
+Status: Fuel is enough
+
+--- COMMUNICATIONS LOG (SORTED) ---
+No communications logged yet.
